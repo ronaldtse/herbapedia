@@ -12,7 +12,7 @@ import './styles/main.css'
 // ViteSSG setup
 export const createApp = ViteSSG(
   App,
-  { routes, base: '/' },
+  { routes, base: '/herbapedia/' },
   ({ app, router, isClient }) => {
     // Install plugins here if needed
   }

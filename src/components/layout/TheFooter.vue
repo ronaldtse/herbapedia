@@ -11,7 +11,8 @@
       </div>
       <nav class="footer__nav">
         <router-link to="/about" class="footer__link">About</router-link>
-        <a href="https://sipm.org" class="footer__link" target="_blank" rel="noopener">SIPM</a>
+        <a href="/standards/" class="footer__link">Standards</a>
+        <a href="/" class="footer__link">SIPM Home</a>
       </nav>
     </div>
   </footer>

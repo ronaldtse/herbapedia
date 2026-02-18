@@ -10,6 +10,8 @@
         <router-link to="/" class="header__link" @click="closeMobileMenu">Home</router-link>
         <router-link to="/herbs" class="header__link" @click="closeMobileMenu">Herbs</router-link>
         <router-link to="/about" class="header__link" @click="closeMobileMenu">About</router-link>
+        <a href="/standards/" class="header__link header__link--external" @click="closeMobileMenu">Standards</a>
+        <a href="/" class="header__link header__link--external" @click="closeMobileMenu">SIPM</a>
       </nav>
 
       <button class="header__menu-toggle" @click="toggleMobileMenu" aria-label="Toggle menu">
@@ -92,6 +94,14 @@ const closeMobileMenu = () => {
 .header__link.router-link-active {
   color: var(--color-primary);
   border-bottom-color: var(--color-accent);
+}
+
+.header__link--external {
+  opacity: 0.8;
+}
+
+.header__link--external:hover {
+  opacity: 1;
 }
 
 .header__menu-toggle {
