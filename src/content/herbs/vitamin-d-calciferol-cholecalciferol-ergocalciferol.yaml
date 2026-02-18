@@ -10,5 +10,6 @@ image: "/images/herbs/vitamin-d-calciferol-cholecalciferol-ergocalciferol.jpg"
 
 metadata:
   source: "vitaherbapedia.com"
-  scraped_at: "2026-02-18T01:32:56.642Z"
+  source_url: "https://www.vitaherbapedia.com/en/shop/vitamins-en/vitamin-d-calciferol-cholecalciferol-ergocalciferol/"
+  scraped_at: "2026-02-18T03:00:40.001Z"
   language: "en"

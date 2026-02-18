@@ -11,7 +11,11 @@ image: "/images/herbs/green-tea.jpg"
 description: |
   In China green tea has been used for centuries to treat poor digestion, headaches, prevent fatigue and sharpen the mind. Tea plants themselves are indigenous to rainy Asian forests and are cultivated widely across China, Sri Lanka, India, Japan, Indonesia and the African continent.
 
+traditional_use: |
+  In China green tea has been used for centuries to treat poor digestion, headaches, prevent fatigue and sharpen the mind.
+
 metadata:
   source: "vitaherbapedia.com"
-  scraped_at: "2026-02-18T01:32:29.373Z"
+  source_url: "https://www.vitaherbapedia.com/en/shop/westherbs-en/green-tea/"
+  scraped_at: "2026-02-18T03:00:13.097Z"
   language: "en"

@@ -10,5 +10,6 @@ image: "/images/herbs/grape-seed.jpg"
 
 metadata:
   source: "vitaherbapedia.com"
-  scraped_at: "2026-02-18T01:32:28.285Z"
+  source_url: "https://www.vitaherbapedia.com/en/shop/westherbs-en/grape-seed/"
+  scraped_at: "2026-02-18T03:00:11.978Z"
   language: "en"

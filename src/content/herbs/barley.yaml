@@ -8,10 +8,8 @@ category: "chinese-herbs"
 title: "Barley"
 image: "/images/herbs/barley.jpg"
 
-description: |
-  First appeared in Grand Materia Medica.
-
 metadata:
   source: "vitaherbapedia.com"
-  scraped_at: "2026-02-18T01:30:19.554Z"
+  source_url: "https://www.vitaherbapedia.com/en/shop/chiherbs-en/barley/"
+  scraped_at: "2026-02-18T02:58:03.394Z"
   language: "en"

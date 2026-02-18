@@ -10,5 +10,6 @@ image: "/images/herbs/blueberry.jpg"
 
 metadata:
   source: "vitaherbapedia.com"
-  scraped_at: "2026-02-18T01:32:15.984Z"
+  source_url: "https://www.vitaherbapedia.com/en/shop/westherbs-en/blueberry/"
+  scraped_at: "2026-02-18T02:59:59.376Z"
   language: "en"

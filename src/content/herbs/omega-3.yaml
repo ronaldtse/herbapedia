@@ -10,5 +10,6 @@ image: "/images/herbs/omega-3.jpg"
 
 metadata:
   source: "vitaherbapedia.com"
-  scraped_at: "2026-02-18T01:33:37.355Z"
+  source_url: "https://www.vitaherbapedia.com/en/shop/nutrients-en/omega-3/"
+  scraped_at: "2026-02-18T03:01:19.906Z"
   language: "en"

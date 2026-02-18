@@ -53,6 +53,22 @@ function safeFilename(str) {
     .replace(/^-|-$/g, '')
 }
 
+// Extract slug from URL path (for Chinese content where title-based slug fails)
+function extractSlugFromUrl(url) {
+  try {
+    const urlObj = new URL(url)
+    const pathParts = urlObj.pathname.split('/').filter(p => p)
+    // Get the last non-empty path segment
+    const lastPart = pathParts[pathParts.length - 1] || ''
+    // Decode URL encoding and sanitize
+    const decoded = decodeURIComponent(lastPart)
+    // If it contains Chinese, try to match with existing English files
+    return safeFilename(decoded) || lastPart
+  } catch {
+    return ''
+  }
+}
+
 function ensureDir(dir) {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true })
@@ -389,7 +405,28 @@ async function scrapeLanguage(langCode, options = {}) {
         continue
       }
 
-      const slug = safeFilename(herbData.title)
+      const titleSlug = safeFilename(herbData.title)
+      // For Chinese content, try to match with existing English file using URL
+      let slug = titleSlug
+      if (!slug) {
+        // Extract slug from URL path
+        slug = extractSlugFromUrl(herbUrl)
+        // If still empty, try to find matching English file by URL pattern
+        if (!slug) {
+          // URL pattern: /shop/category-name/item-name/
+          const urlMatch = herbUrl.match(/\/shop\/[^/]+\/([^/]+)\/?$/)
+          if (urlMatch) {
+            slug = safeFilename(decodeURIComponent(urlMatch[1]))
+          }
+        }
+      }
+
+      // If slug is still empty, skip this entry
+      if (!slug) {
+        console.log('    Skipping - could not generate slug')
+        continue
+      }
+
       console.log(`    Title: ${herbData.title}`)
       console.log(`    Slug: ${slug}`)
 

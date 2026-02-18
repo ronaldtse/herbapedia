@@ -10,5 +10,6 @@ image: "/images/herbs/glycerin.jpg"
 
 metadata:
   source: "vitaherbapedia.com"
-  scraped_at: "2026-02-18T01:33:24.852Z"
+  source_url: "https://www.vitaherbapedia.com/en/shop/nutrients-en/glycerin/"
+  scraped_at: "2026-02-18T03:01:07.951Z"
   language: "en"

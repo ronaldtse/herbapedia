@@ -10,5 +10,6 @@ image: "/images/herbs/vitamin-b12.jpg"
 
 metadata:
   source: "vitaherbapedia.com"
-  scraped_at: "2026-02-18T01:32:47.772Z"
+  source_url: "https://www.vitaherbapedia.com/en/shop/vitamins-en/vitamin-b12/"
+  scraped_at: "2026-02-18T03:00:31.300Z"
   language: "en"

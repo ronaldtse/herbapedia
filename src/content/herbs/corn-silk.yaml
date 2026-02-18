@@ -11,7 +11,11 @@ image: "/images/herbs/corn-silk.jpg"
 description: |
   Corn Silk has long been used in North American folk medicine to treat urinary conditions including inflammation of the bladder and painful urination.
 
+traditional_use: |
+  Corn Silk has long been used in North American folk medicine to treat urinary conditions including inflammation of the bladder and painful urination..
+
 metadata:
   source: "vitaherbapedia.com"
-  scraped_at: "2026-02-18T01:30:37.015Z"
+  source_url: "https://www.vitaherbapedia.com/en/shop/chiherbs-en/corn-silk/"
+  scraped_at: "2026-02-18T02:58:21.145Z"
   language: "en"

@@ -10,5 +10,6 @@ image: "/images/herbs/amber.jpg"
 
 metadata:
   source: "vitaherbapedia.com"
-  scraped_at: "2026-02-18T01:32:10.248Z"
+  source_url: "https://www.vitaherbapedia.com/en/shop/westherbs-en/amber/"
+  scraped_at: "2026-02-18T02:59:53.728Z"
   language: "en"

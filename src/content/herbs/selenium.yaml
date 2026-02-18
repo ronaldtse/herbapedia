@@ -10,5 +10,6 @@ image: "/images/herbs/selenium.jpg"
 
 metadata:
   source: "vitaherbapedia.com"
-  scraped_at: "2026-02-18T01:33:08.310Z"
+  source_url: "https://www.vitaherbapedia.com/en/shop/minerals-en/selenium/"
+  scraped_at: "2026-02-18T03:00:51.485Z"
   language: "en"

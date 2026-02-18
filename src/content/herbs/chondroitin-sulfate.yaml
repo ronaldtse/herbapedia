@@ -10,5 +10,6 @@ image: "/images/herbs/chondroitin-sulfate.jpg"
 
 metadata:
   source: "vitaherbapedia.com"
-  scraped_at: "2026-02-18T01:33:19.271Z"
+  source_url: "https://www.vitaherbapedia.com/en/shop/nutrients-en/chondroitin-sulfate/"
+  scraped_at: "2026-02-18T03:01:02.285Z"
   language: "en"

@@ -10,5 +10,6 @@ image: "/images/herbs/royal-jelly.jpg"
 
 metadata:
   source: "vitaherbapedia.com"
-  scraped_at: "2026-02-18T01:32:37.086Z"
+  source_url: "https://www.vitaherbapedia.com/en/shop/westherbs-en/royal-jelly/"
+  scraped_at: "2026-02-18T03:00:20.851Z"
   language: "en"

@@ -10,5 +10,6 @@ image: "/images/herbs/chitosan.jpg"
 
 metadata:
   source: "vitaherbapedia.com"
-  scraped_at: "2026-02-18T01:33:17.013Z"
+  source_url: "https://www.vitaherbapedia.com/en/shop/nutrients-en/chitosan/"
+  scraped_at: "2026-02-18T03:00:59.954Z"
   language: "en"

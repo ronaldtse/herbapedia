@@ -10,5 +10,6 @@ image: "/images/herbs/soy.jpg"
 
 metadata:
   source: "vitaherbapedia.com"
-  scraped_at: "2026-02-18T01:32:39.291Z"
+  source_url: "https://www.vitaherbapedia.com/en/shop/westherbs-en/soy/"
+  scraped_at: "2026-02-18T03:00:22.997Z"
   language: "en"

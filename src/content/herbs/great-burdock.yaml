@@ -10,5 +10,6 @@ image: "/images/herbs/great-burdock.jpg"
 
 metadata:
   source: "vitaherbapedia.com"
-  scraped_at: "2026-02-18T01:30:54.990Z"
+  source_url: "https://www.vitaherbapedia.com/en/shop/chiherbs-en/great-burdock/"
+  scraped_at: "2026-02-18T02:58:39.329Z"
   language: "en"

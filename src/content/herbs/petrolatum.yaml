@@ -10,5 +10,6 @@ image: "/images/herbs/petrolatum.jpg"
 
 metadata:
   source: "vitaherbapedia.com"
-  scraped_at: "2026-02-18T01:33:41.848Z"
+  source_url: "https://www.vitaherbapedia.com/en/shop/nutrients-en/petrolatum/"
+  scraped_at: "2026-02-18T03:01:24.327Z"
   language: "en"

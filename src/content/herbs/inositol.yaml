@@ -10,5 +10,6 @@ image: "/images/herbs/inositol.jpg"
 
 metadata:
   source: "vitaherbapedia.com"
-  scraped_at: "2026-02-18T01:33:28.183Z"
+  source_url: "https://www.vitaherbapedia.com/en/shop/nutrients-en/inositol/"
+  scraped_at: "2026-02-18T03:01:11.273Z"
   language: "en"

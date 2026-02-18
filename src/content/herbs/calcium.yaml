@@ -10,5 +10,6 @@ image: "/images/herbs/calcium.jpg"
 
 metadata:
   source: "vitaherbapedia.com"
-  scraped_at: "2026-02-18T01:33:00.480Z"
+  source_url: "https://www.vitaherbapedia.com/en/shop/minerals-en/calcium/"
+  scraped_at: "2026-02-18T03:00:43.777Z"
   language: "en"

@@ -10,5 +10,6 @@ image: "/images/herbs/vitamin-c.jpg"
 
 metadata:
   source: "vitaherbapedia.com"
-  scraped_at: "2026-02-18T01:32:55.516Z"
+  source_url: "https://www.vitaherbapedia.com/en/shop/vitamins-en/vitamin-c/"
+  scraped_at: "2026-02-18T03:00:38.934Z"
   language: "en"

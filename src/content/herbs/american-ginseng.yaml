@@ -11,7 +11,11 @@ image: "/images/herbs/american-ginseng.jpg"
 description: |
   The herb is native to eastern North America and Canada and has traditionally been used by native American Indians, but today it is also cultivated in China and France. The forked roots are harvested when ripe, usually after three to four years. It first appeared in the Thoroughly Revised Materia Medica.
 
+traditional_use: |
+  The herb is native to eastern North America and Canada and has traditionally been used by native American Indians, but today it is also cultivated in China and France.
+
 metadata:
   source: "vitaherbapedia.com"
-  scraped_at: "2026-02-18T01:30:15.062Z"
+  source_url: "https://www.vitaherbapedia.com/en/shop/chiherbs-en/american-ginseng/"
+  scraped_at: "2026-02-18T02:57:58.783Z"
   language: "en"

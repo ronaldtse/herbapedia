@@ -10,5 +10,6 @@ image: "/images/herbs/argan-oil.jpg"
 
 metadata:
   source: "vitaherbapedia.com"
-  scraped_at: "2026-02-18T01:32:11.579Z"
+  source_url: "https://www.vitaherbapedia.com/en/shop/westherbs-en/argan-oil/"
+  scraped_at: "2026-02-18T02:59:54.806Z"
   language: "en"

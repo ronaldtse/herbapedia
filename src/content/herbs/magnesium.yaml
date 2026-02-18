@@ -10,5 +10,6 @@ image: "/images/herbs/magnesium.jpg"
 
 metadata:
   source: "vitaherbapedia.com"
-  scraped_at: "2026-02-18T01:33:04.829Z"
+  source_url: "https://www.vitaherbapedia.com/en/shop/minerals-en/magnesium/"
+  scraped_at: "2026-02-18T03:00:48.154Z"
   language: "en"

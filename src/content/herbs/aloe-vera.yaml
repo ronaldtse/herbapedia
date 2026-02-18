@@ -11,7 +11,11 @@ image: "/images/herbs/aloe-vera.jpg"
 description: |
   For thousands of years, transparent gel from the pulp of the meaty leaves of Aloe Vera has been used topically to treat wounds, skin infections, burns, and numerous other dermatologic conditions. The laxative effect of latex from the leaves has also long been known and prized.
 
+traditional_use: |
+  For thousands of years, transparent gel from the pulp of the meaty leaves of Aloe Vera has been used topically to treat wounds, skin infections, burns, and numerous other dermatologic conditions.
+
 metadata:
   source: "vitaherbapedia.com"
-  scraped_at: "2026-02-18T01:32:09.092Z"
+  source_url: "https://www.vitaherbapedia.com/en/shop/westherbs-en/aloe-vera/"
+  scraped_at: "2026-02-18T02:59:52.651Z"
   language: "en"

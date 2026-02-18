@@ -10,5 +10,6 @@ image: "/images/herbs/vitamin-b6.jpg"
 
 metadata:
   source: "vitaherbapedia.com"
-  scraped_at: "2026-02-18T01:32:52.234Z"
+  source_url: "https://www.vitaherbapedia.com/en/shop/vitamins-en/vitamin-b6/"
+  scraped_at: "2026-02-18T03:00:35.645Z"
   language: "en"

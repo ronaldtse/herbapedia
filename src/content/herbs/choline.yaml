@@ -10,5 +10,6 @@ image: "/images/herbs/choline.jpg"
 
 metadata:
   source: "vitaherbapedia.com"
-  scraped_at: "2026-02-18T01:33:18.140Z"
+  source_url: "https://www.vitaherbapedia.com/en/shop/nutrients-en/choline/"
+  scraped_at: "2026-02-18T03:01:01.113Z"
   language: "en"

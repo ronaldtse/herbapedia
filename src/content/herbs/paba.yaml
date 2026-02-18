@@ -10,5 +10,6 @@ image: "/images/herbs/paba.jpg"
 
 metadata:
   source: "vitaherbapedia.com"
-  scraped_at: "2026-02-18T01:33:40.736Z"
+  source_url: "https://www.vitaherbapedia.com/en/shop/nutrients-en/paba/"
+  scraped_at: "2026-02-18T03:01:23.267Z"
   language: "en"

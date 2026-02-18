@@ -10,5 +10,6 @@ image: "/images/herbs/vitamin-a.jpg"
 
 metadata:
   source: "vitaherbapedia.com"
-  scraped_at: "2026-02-18T01:32:45.576Z"
+  source_url: "https://www.vitaherbapedia.com/en/shop/vitamins-en/vitamin-a/"
+  scraped_at: "2026-02-18T03:00:29.003Z"
   language: "en"

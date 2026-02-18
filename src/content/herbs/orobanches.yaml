@@ -9,9 +9,13 @@ title: "Orobanches"
 image: "/images/herbs/orobanches.jpg"
 
 description: |
-  Herba Orobanches is a precious plant that grows wild on the high peaks of Changbai Mountain, an ancient, sacred region on the border between China and North Korea. The plant was discovered by indigenous inhabitants. who prize it for its rejuvenating properties.
+  Herba Orobanches is a precious plant that grows wild on the high peaks of Changbai Mountain, an ancient, sacred region on the border between China and North Korea
+
+traditional_use: |
+  Herba Orobanches is a precious plant that grows wild on the high peaks of Changbai Mountain, an ancient, sacred region on the border between China and North Korea.
 
 metadata:
   source: "vitaherbapedia.com"
-  scraped_at: "2026-02-18T01:31:22.670Z"
+  source_url: "https://www.vitaherbapedia.com/en/shop/chiherbs-en/orobanches/"
+  scraped_at: "2026-02-18T02:59:06.419Z"
   language: "en"

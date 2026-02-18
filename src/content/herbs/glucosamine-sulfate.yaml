@@ -10,5 +10,6 @@ image: "/images/herbs/glucosamine-sulfate.jpg"
 
 metadata:
   source: "vitaherbapedia.com"
-  scraped_at: "2026-02-18T01:33:23.773Z"
+  source_url: "https://www.vitaherbapedia.com/en/shop/nutrients-en/glucosamine-sulfate/"
+  scraped_at: "2026-02-18T03:01:06.762Z"
   language: "en"

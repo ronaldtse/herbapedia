@@ -10,5 +10,6 @@ image: "/images/herbs/omega-9.jpg"
 
 metadata:
   source: "vitaherbapedia.com"
-  scraped_at: "2026-02-18T01:33:39.644Z"
+  source_url: "https://www.vitaherbapedia.com/en/shop/nutrients-en/omega-9/"
+  scraped_at: "2026-02-18T03:01:22.142Z"
   language: "en"
