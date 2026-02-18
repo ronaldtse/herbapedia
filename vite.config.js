@@ -2,6 +2,8 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import yaml from '@modyfi/vite-plugin-yaml'
 import { resolve } from 'path'
+import fs from 'fs'
+import path from 'path'
 
 export default defineConfig({
   plugins: [
@@ -35,8 +37,6 @@ export default defineConfig({
 
       // Individual herbs - will be populated from content
       // This runs at build time, so we read from the content directory
-      const fs = require('fs')
-      const path = require('path')
       const herbsDir = path.resolve(__dirname, 'src/content/herbs')
 
       if (fs.existsSync(herbsDir)) {
