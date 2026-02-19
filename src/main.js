@@ -14,7 +14,7 @@ import './styles/main.css'
 // ViteSSG setup
 export const createApp = ViteSSG(
   App,
-  { routes, base: '/herbapedia/' },
+  { routes, base: '/' },
   ({ app, router, isClient }) => {
     // Install i18n plugin
     app.use(i18n)
