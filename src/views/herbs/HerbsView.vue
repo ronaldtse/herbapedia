@@ -1,13 +1,23 @@
 <template>
   <div class="herbs-view">
-    <div class="container">
-      <header class="herbs-view__header">
-        <h1>Herbapedia</h1>
-        <p class="herbs-view__subtitle">
-          {{ t('common.browseCollection') }}
-        </p>
-      </header>
+    <!-- Hero Banner -->
+    <section class="herbs-hero">
+      <div class="herbs-hero__background">
+        <img
+          src="/@herbapedia/data/media/images/banners/tcm-banner.jpg"
+          alt=""
+          class="herbs-hero__bg-image"
+          @error="handleImageError"
+        />
+        <div class="herbs-hero__overlay"></div>
+      </div>
+      <div class="container herbs-hero__content">
+        <h1 class="herbs-hero__title">{{ t('nav.herbs') }}</h1>
+        <p class="herbs-hero__subtitle">{{ t('common.browseCollection') }}</p>
+      </div>
+    </section>
 
+    <div class="container">
       <div class="herbs-view__categories">
         <router-link
           v-for="cat in categories"
@@ -16,7 +26,7 @@
           class="category-chip"
           :class="{ 'category-chip--active': false }"
         >
-          {{ cat.title }} ({{ cat.count }})
+          {{ localizer.getCategoryLabel(cat.slug) }} ({{ cat.count }})
         </router-link>
       </div>
 
@@ -25,10 +35,10 @@
           v-for="herb in herbs"
           :key="herb.slug"
           :to="localePath(`/herbs/${herb.category}/${herb.slug}`)"
-          :title="herb.title"
-          :english-title="herb.english_title"
-          :scientific-name="herb.scientific_name"
-          :image="herb.resolvedImage"
+          :title="localizer.getName(herb)"
+          :english-title="localizer.getCommonName(herb)"
+          :scientific-name="herb.scientificName"
+          :image="herb.image"
           :category="herb.category"
         />
       </div>
@@ -45,22 +55,19 @@ import { ref, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import HerbCard from '@/components/ui/HerbCard.vue'
-import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from '@/i18n/locales'
+import { DEFAULT_LOCALE } from '@/i18n/locales'
+import { useAllHerbs, useCategories, useHerbLocalizer } from '@/composables/useHerbData'
 
 const { t, locale } = useI18n()
 const route = useRoute()
 
-// Category titles based on locale
-const getCategoryTitle = (slug) => {
-  const titles = {
-    'chinese-herbs': t('categories.chineseHerbs'),
-    'western-herbs': t('categories.westernHerbs'),
-    'vitamins': t('categories.vitamins'),
-    'minerals': t('categories.minerals'),
-    'nutrients': t('categories.nutrients')
-  }
-  return titles[slug] || slug
-}
+const localizer = useHerbLocalizer()
+
+// Get all herbs
+const allHerbs = useAllHerbs()
+
+// Get categories with counts
+const allCategories = useCategories()
 
 // Helper to generate localized paths
 const localePath = (path) => {
@@ -70,102 +77,81 @@ const localePath = (path) => {
   return `/${locale.value}${path}`
 }
 
-// Import images (same for all locales)
-const imageModules = import.meta.glob('/src/content/herbs/*/images/*.jpg', { eager: true, as: 'url' })
+// Filter herbs by category from route
+const herbs = computed(() => {
+  const category = route.params.category
+  if (!category) return allHerbs.value
 
-// Import herb modules for all locales
-const herbsModulesEn = import.meta.glob('/src/content/herbs/*/en.yaml', { eager: true })
-const herbsModulesZhHK = import.meta.glob('/src/content/herbs/*/zh-HK.yaml', { eager: true })
-const herbsModulesZhCN = import.meta.glob('/src/content/herbs/*/zh-CN.yaml', { eager: true })
+  return allHerbs.value.filter(h => h.category === category)
+})
 
-const herbs = ref([])
-const categories = ref([
-  { slug: 'chinese-herbs', title: getCategoryTitle('chinese-herbs'), count: 0 },
-  { slug: 'western-herbs', title: getCategoryTitle('western-herbs'), count: 0 },
-  { slug: 'vitamins', title: getCategoryTitle('vitamins'), count: 0 },
-  { slug: 'minerals', title: getCategoryTitle('minerals'), count: 0 },
-  { slug: 'nutrients', title: getCategoryTitle('nutrients'), count: 0 }
-])
-
-// Function to load herbs for a specific locale
-function loadHerbsForLocale(targetLocale) {
-  // Select the appropriate modules based on locale
-  let modules
-  switch (targetLocale) {
-    case 'zh-HK':
-      modules = herbsModulesZhHK
-      break
-    case 'zh-CN':
-      modules = herbsModulesZhCN
-      break
-    default:
-      modules = herbsModulesEn
-  }
-
-  const newHerbs = []
-  const counts = {
-    'chinese-herbs': 0,
-    'western-herbs': 0,
-    'vitamins': 0,
-    'minerals': 0,
-    'nutrients': 0
-  }
-
-  Object.entries(modules).forEach(([path, module]) => {
-    const data = module?.default || module
-    if (data && data.title) {
-      // Extract slug from path
-      const slugMatch = path.match(/\/([^/]+)\/(?:en|zh-HK|zh-CN)\.yaml$/)
-      if (slugMatch) {
-        data.slug = data.slug || slugMatch[1]
-
-        // Resolve image URL
-        const imagePath = `/src/content/herbs/${data.slug}/images/${data.slug}.jpg`
-        if (imageModules[imagePath]) {
-          data.resolvedImage = imageModules[imagePath]
-        }
-      }
-
-      newHerbs.push(data)
-
-      // Update category count
-      if (counts[data.category] !== undefined) {
-        counts[data.category]++
-      }
-    }
-  })
-
-  herbs.value = newHerbs
-
-  // Update category counts and titles
-  categories.value = categories.value.map(cat => ({
+// Update categories with localized titles and filtered counts
+const categories = computed(() => {
+  return allCategories.value.map(cat => ({
     ...cat,
-    title: getCategoryTitle(cat.slug),
-    count: counts[cat.slug] || 0
+    title: localizer.getCategoryLabel(cat.slug),
+    count: herbs.value.filter(h => h.category === cat.slug).length
   }))
-}
+})
 
-// Load herbs when locale changes
-watch(locale, (newLocale) => {
-  loadHerbsForLocale(newLocale)
-}, { immediate: true })
+// Handle hero image error - fall back to gradient
+function handleImageError(event) {
+  event.target.style.display = 'none'
+}
 </script>
 
 <style scoped>
 .herbs-view {
-  padding: var(--spacing-2xl) 0;
   min-height: calc(100vh - var(--header-height));
 }
 
-.herbs-view__header {
-  text-align: center;
+/* Hero Banner */
+.herbs-hero {
+  position: relative;
+  height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
   margin-bottom: var(--spacing-2xl);
 }
 
-.herbs-view__subtitle {
+.herbs-hero__background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.herbs-hero__bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.herbs-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(34, 139, 34, 0.85), rgba(0, 100, 0, 0.75));
+}
+
+.herbs-hero__content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: var(--color-text-inverse);
+}
+
+.herbs-hero__title {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-text-inverse);
+}
+
+.herbs-hero__subtitle {
   font-size: var(--font-size-lg);
-  color: var(--color-text-light);
-  max-width: 600px;
+  opacity: 0.9;
+  max-width: 500px;
   margin: 0 auto;
 }
 

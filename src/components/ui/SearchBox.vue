@@ -95,8 +95,8 @@ const dropdownStyle = ref({})
 
 // Import all herb data for search
 const herbsModulesEn = import.meta.glob('/src/content/herbs/*/en.yaml', { eager: true })
-const herbsModulesZhHK = import.meta.glob('/src/content/herbs/*/zh-HK.yaml', { eager: true })
-const herbsModulesZhCN = import.meta.glob('/src/content/herbs/*/zh-CN.yaml', { eager: true })
+const herbsModulesZhHant = import.meta.glob('/src/content/herbs/*/zh-Hant.yaml', { eager: true })
+const herbsModulesZhHans = import.meta.glob('/src/content/herbs/*/zh-Hans.yaml', { eager: true })
 const imageModules = import.meta.glob('/src/content/herbs/*/images/*.jpg', { eager: true, as: 'url' })
 
 // Build search index
@@ -107,11 +107,11 @@ function buildSearchIndex() {
   let modules
 
   switch (locale.value) {
-    case 'zh-HK':
-      modules = herbsModulesZhHK
+    case 'zh-Hant':
+      modules = herbsModulesZhHant
       break
-    case 'zh-CN':
-      modules = herbsModulesZhCN
+    case 'zh-Hans':
+      modules = herbsModulesZhHans
       break
     default:
       modules = herbsModulesEn
@@ -120,7 +120,7 @@ function buildSearchIndex() {
   for (const [path, module] of Object.entries(modules)) {
     const data = module?.default || module
     if (data && data.title) {
-      const slugMatch = path.match(/\/([^/]+)\/(?:en|zh-HK|zh-CN)\.yaml$/)
+      const slugMatch = path.match(/\/([^/]+)\/(?:en|zh-Hant|zh-Hans)\.yaml$/)
       const slug = slugMatch ? slugMatch[1] : ''
 
       // Get image

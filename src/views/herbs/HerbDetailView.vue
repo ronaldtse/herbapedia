@@ -6,16 +6,16 @@
         <span>/</span>
         <router-link :to="localePath(`/herbs/${herb?.category}`)">{{ categoryTitle }}</router-link>
         <span>/</span>
-        <span>{{ herb?.title }}</span>
+        <span>{{ herbTitle }}</span>
       </nav>
 
       <article v-if="herb" class="herb-detail">
         <header class="herb-detail__header">
           <div class="herb-detail__image-wrapper">
             <img
-              v-if="herb.resolvedImage"
-              :src="herb.resolvedImage"
-              :alt="herb.title"
+              v-if="herb.image"
+              :src="herb.image"
+              :alt="herbTitle"
               class="herb-detail__image"
             />
             <div v-else class="herb-detail__placeholder">
@@ -29,53 +29,114 @@
 
           <div class="herb-detail__meta">
             <span class="herb-detail__category">{{ categoryTitle }}</span>
-            <h1 class="herb-detail__title">{{ herb.title }}</h1>
-            <p v-if="herb.english_title" class="herb-detail__english-title">{{ herb.english_title }}</p>
-            <p v-if="herb.scientific_name" class="herb-detail__scientific">
-              {{ herb.scientific_name }}
+            <h1 class="herb-detail__title">{{ herbTitle }}</h1>
+            <p v-if="localizer.getCommonName(herb)" class="herb-detail__english-title">{{ localizer.getCommonName(herb) }}</p>
+            <p v-if="herbScientificName" class="herb-detail__scientific">
+              {{ herbScientificName }}
             </p>
           </div>
         </header>
 
+        <!-- TCM Properties Card -->
+        <TcmPropertiesCard v-if="herb.type === 'tcm-herb'" :herb="herb" />
+
+        <!-- Western Properties Card -->
+        <WesternPropertiesCard v-if="herb.type === 'western-herb'" :herb="herb" />
+
+        <!-- Chemical Compounds Card -->
+        <ChemicalCompoundsCard v-if="herb.containsChemical?.length" :herb="herb" />
+
+        <!-- Safety Alert -->
+        <SafetyAlert v-if="herb" :herb="herb" />
+
         <div class="herb-detail__content">
-          <section v-if="herb.history" class="herb-detail__section">
+          <!-- Description -->
+          <section v-if="herbDescription" class="herb-detail__section">
+            <h2>{{ t('sections.description') }}</h2>
+            <p>{{ herbDescription }}</p>
+          </section>
+
+          <!-- History -->
+          <section v-if="herbHistory" class="herb-detail__section">
             <h2>{{ t('sections.history') }}</h2>
-            <p>{{ herb.history }}</p>
+            <p>{{ herbHistory }}</p>
           </section>
 
-          <section v-if="herb.introduction" class="herb-detail__section">
-            <h2>{{ t('sections.introduction') }}</h2>
-            <p>{{ herb.introduction }}</p>
-          </section>
-
-          <section v-if="herb.botanical_source" class="herb-detail__section">
-            <h2>{{ t('sections.botanicalSource') }}</h2>
-            <p>{{ herb.botanical_source }}</p>
-          </section>
-
-          <section v-if="herb.traditional_usage" class="herb-detail__section">
+          <!-- Traditional Usage -->
+          <section v-if="herbTraditionalUsage" class="herb-detail__section">
             <h2>{{ t('sections.traditionalUsage') }}</h2>
-            <p>{{ herb.traditional_usage }}</p>
+            <p style="white-space: pre-line;">{{ herbTraditionalUsage }}</p>
           </section>
 
-          <section v-if="herb.modern_research" class="herb-detail__section">
-            <h2>{{ t('sections.modernResearch') }}</h2>
-            <p>{{ herb.modern_research }}</p>
-          </section>
-
-          <section v-if="herb.functions" class="herb-detail__section">
+          <!-- Functions -->
+          <section v-if="herbFunctions" class="herb-detail__section">
             <h2>{{ t('sections.functions') }}</h2>
-            <p>{{ herb.functions }}</p>
+            <p style="white-space: pre-line;">{{ herbFunctions }}</p>
           </section>
 
-          <section v-if="herb.importance" class="herb-detail__section">
-            <h2>{{ t('sections.importance') }}</h2>
-            <p>{{ herb.importance }}</p>
+          <!-- Actions (for TCM herbs) -->
+          <section v-if="herb.actions && herb.actions.length > 0" class="herb-detail__section">
+            <h2>{{ t('tcm.actions') }}</h2>
+            <ul class="herb-detail__list">
+              <li v-for="(action, index) in herb.actions" :key="index">{{ action }}</li>
+            </ul>
           </section>
 
-          <section v-if="herb.food_sources" class="herb-detail__section">
-            <h2>{{ t('sections.foodSources') }}</h2>
-            <p>{{ herb.food_sources }}</p>
+          <!-- Indications (for TCM herbs) -->
+          <section v-if="herb.indications && herb.indications.length > 0" class="herb-detail__section">
+            <h2>{{ t('sections.indications') }}</h2>
+            <ul class="herb-detail__list">
+              <li v-for="(indication, index) in herb.indications" :key="index">{{ indication }}</li>
+            </ul>
+          </section>
+
+          <!-- Modern Research -->
+          <section v-if="herbModernResearch" class="herb-detail__section">
+            <h2>{{ t('sections.modernResearch') }}</h2>
+            <p style="white-space: pre-line;">{{ herbModernResearch }}</p>
+          </section>
+
+          <!-- Classical Reference (for TCM herbs) -->
+          <section v-if="herbClassicalReference" class="herb-detail__section herb-detail__section--quote">
+            <h2>{{ t('sections.classicalReference') }}</h2>
+            <blockquote>{{ herbClassicalReference }}</blockquote>
+          </section>
+
+          <!-- Contraindications (for TCM herbs) -->
+          <section v-if="herbContraindications" class="herb-detail__section herb-detail__section--warning">
+            <h2>{{ t('sections.contraindications') }}</h2>
+            <p>{{ herbContraindications }}</p>
+          </section>
+
+          <!-- Safety Consideration (for TCM herbs) -->
+          <section v-if="herbSafetyConsideration" class="herb-detail__section herb-detail__section--warning">
+            <h2>{{ t('sections.safetyConsideration') }}</h2>
+            <p>{{ herbSafetyConsideration }}</p>
+          </section>
+
+          <!-- Dosage (for TCM herbs) -->
+          <section v-if="herbDosage" class="herb-detail__section">
+            <h2>{{ t('sections.dosage') }}</h2>
+            <p>{{ herbDosage }}</p>
+          </section>
+
+          <!-- External Links -->
+          <section v-if="hasExternalLinks" class="herb-detail__section">
+            <h2>{{ t('links.title') }}</h2>
+            <div class="herb-detail__links">
+              <a
+                v-for="link in externalLinks"
+                :key="link.url"
+                :href="link.url"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="herb-detail__link"
+              >
+                <span class="herb-detail__link-icon">{{ link.icon }}</span>
+                <span class="herb-detail__link-label">{{ link.label }}</span>
+                <span class="herb-detail__link-arrow">→</span>
+              </a>
+            </div>
           </section>
 
           <aside class="herb-detail__disclaimer">
@@ -84,6 +145,9 @@
             </p>
           </aside>
         </div>
+
+        <!-- Related Herbs -->
+        <RelatedHerbs v-if="herb" :herb="herb" :limit="4" />
       </article>
 
       <div v-else class="herb-detail__not-found">
@@ -102,10 +166,18 @@ import { computed, watch, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { DEFAULT_LOCALE } from '@/i18n/locales'
+import { useHerb, useHerbLocalizer } from '@/composables/useHerbData'
+import TcmPropertiesCard from '@/components/ui/TcmPropertiesCard.vue'
+import WesternPropertiesCard from '@/components/ui/WesternPropertiesCard.vue'
+import ChemicalCompoundsCard from '@/components/ui/ChemicalCompoundsCard.vue'
+import RelatedHerbs from '@/components/ui/RelatedHerbs.vue'
+import SafetyAlert from '@/components/ui/SafetyAlert.vue'
 
 const route = useRoute()
 const { t, locale } = useI18n()
 const slug = computed(() => route.params.slug)
+
+const herb = ref(null)
 
 // Category titles based on locale
 const getCategoryTitle = (categorySlug) => {
@@ -129,50 +201,94 @@ const localePath = (path) => {
   return `/${locale.value}${path}`
 }
 
-// Import images (same for all locales)
-const imageModules = import.meta.glob('/src/content/herbs/*/images/*.jpg', { eager: true, as: 'url' })
+// Get localized content
+const localizer = useHerbLocalizer()
 
-// Import herb modules for all locales
-const herbsModulesEn = import.meta.glob('/src/content/herbs/*/en.yaml', { eager: true })
-const herbsModulesZhHK = import.meta.glob('/src/content/herbs/*/zh-HK.yaml', { eager: true })
-const herbsModulesZhCN = import.meta.glob('/src/content/herbs/*/zh-CN.yaml', { eager: true })
+// Computed properties for localized display
+const herbTitle = computed(() => {
+  if (!herb.value) return null
+  return localizer.getName(herb.value) || herb.value.slug
+})
 
-const herb = ref(null)
+const herbScientificName = computed(() => herb.value?.scientificName)
 
-// Function to load herb for a specific locale and slug
-function loadHerbForLocale(targetLocale, targetSlug) {
-  let modules
-  switch (targetLocale) {
-    case 'zh-HK':
-      modules = herbsModulesZhHK
-      break
-    case 'zh-CN':
-      modules = herbsModulesZhCN
-      break
-    default:
-      modules = herbsModulesEn
-  }
+const herbHistory = computed(() =>
+  localizer.getTcmHistory(herb.value) || localizer.getWesternHistory(herb.value))
+const herbTraditionalUsage = computed(() =>
+  localizer.getTcmTraditionalUsage(herb.value) || localizer.getWesternTraditionalUsage(herb.value))
+const herbModernResearch = computed(() =>
+  localizer.getTcmModernResearch(herb.value) || localizer.getWesternModernResearch(herb.value))
+const herbFunctions = computed(() => localizer.getTcmFunctions(herb.value))
+const herbDescription = computed(() => localizer.getDescription(herb.value))
 
-  // Find the module matching the slug
-  const path = `/src/content/herbs/${targetSlug}/${targetLocale === 'en' ? 'en' : targetLocale}.yaml`
-  const module = modules[path]
-  const data = module?.default || module || null
+// Additional TCM content
+const herbClassicalReference = computed(() => {
+  if (!herb.value?.tcmClassicalReference) return null
+  return localizer.getTcmHistory(herb.value) || herb.value.tcmClassicalReference['zh-Hant'] || herb.value.tcmClassicalReference['en']
+})
 
-  if (data) {
-    // Resolve image URL
-    const imagePath = `/src/content/herbs/${targetSlug}/images/${targetSlug}.jpg`
-    if (imageModules[imagePath]) {
-      data.resolvedImage = imageModules[imagePath]
+const herbContraindications = computed(() => {
+  if (!herb.value?.contraindications) return null
+  const c = herb.value.contraindications
+  if (typeof c === 'string') return c
+  return c[locale.value] || c['en'] || c['zh-Hant'] || null
+})
+
+const herbSafetyConsideration = computed(() => {
+  if (!herb.value?.tcmSafetyConsideration) return null
+  const s = herb.value.tcmSafetyConsideration
+  if (typeof s === 'string') return s
+  return s[locale.value] || s['en'] || s['zh-Hant'] || null
+})
+
+const herbDosage = computed(() => {
+  if (!herb.value?.dosage) return null
+  const d = herb.value.dosage
+  if (typeof d === 'string') return d
+  return d[locale.value] || d['en'] || d['zh-Hant'] || null
+})
+
+// External links
+const externalLinks = computed(() => {
+  if (!herb.value?.sameAs) return []
+  const links = []
+
+  for (const link of herb.value.sameAs) {
+    const url = typeof link === 'object' ? link['@id'] || link : link
+
+    if (typeof url === 'string') {
+      if (url.includes('wikidata.org')) {
+        links.push({
+          url,
+          label: t('links.wikidata'),
+          icon: '📊'
+        })
+      } else if (url.includes('gbif.org')) {
+        links.push({
+          url,
+          label: t('links.gbif'),
+          icon: '🌿'
+        })
+      } else if (url.includes('wikipedia.org')) {
+        links.push({
+          url,
+          label: t('links.wikipedia'),
+          icon: '📚'
+        })
+      }
     }
   }
 
-  herb.value = data
-}
+  return links
+})
 
-// Load herb when locale or slug changes
-watch([locale, slug], ([newLocale, newSlug]) => {
+const hasExternalLinks = computed(() => externalLinks.value.length > 0)
+
+// Watch slug changes and load herb
+watch(slug, (newSlug) => {
   if (newSlug) {
-    loadHerbForLocale(newLocale, newSlug)
+    const herbData = useHerb(newSlug)
+    herb.value = herbData.value
   }
 }, { immediate: true })
 </script>
@@ -292,6 +408,72 @@ watch([locale, slug], ([newLocale, newSlug]) => {
   line-height: var(--line-height-relaxed);
 }
 
+.herb-detail__section--warning {
+  background: #fef3c7;
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  border-left: 4px solid #f59e0b;
+}
+
+.herb-detail__section--warning h2 {
+  border-bottom-color: #f59e0b;
+}
+
+.herb-detail__section--quote blockquote {
+  font-style: italic;
+  color: var(--color-text-light);
+  padding-left: var(--spacing-md);
+  border-left: 3px solid var(--color-accent);
+  margin: 0;
+}
+
+.herb-detail__list {
+  margin: 0;
+  padding-left: var(--spacing-lg);
+}
+
+.herb-detail__list li {
+  margin-bottom: var(--spacing-xs);
+  line-height: var(--line-height-relaxed);
+}
+
+.herb-detail__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.herb-detail__link {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: var(--color-text);
+  transition: all var(--transition-fast);
+}
+
+.herb-detail__link:hover {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  border-color: var(--color-primary);
+}
+
+.herb-detail__link-icon {
+  font-size: var(--font-size-lg);
+}
+
+.herb-detail__link-label {
+  font-weight: var(--font-weight-medium);
+}
+
+.herb-detail__link-arrow {
+  opacity: 0.5;
+}
+
 .herb-detail__disclaimer {
   margin-top: var(--spacing-2xl);
   padding: var(--spacing-lg);
@@ -327,6 +509,10 @@ watch([locale, slug], ([newLocale, newSlug]) => {
   .herb-detail__image-wrapper {
     width: 150px;
     height: 150px;
+  }
+
+  .herb-detail__links {
+    flex-direction: column;
   }
 }
 </style>

@@ -1,5 +1,5 @@
 {
-  "name": "herbapedia",
+  "name": "@herbapedia/site",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -9,11 +9,12 @@
     "build": "vite-ssg build",
     "preview": "vite preview",
     "scrape": "node scripts/scrape-herbapedia.js",
-    "scrape:zh-hk": "node scripts/scrape-herbapedia.js --lang zh-HK --skip-images",
-    "scrape:zh-cn": "node scripts/scrape-herbapedia.js --lang zh-CN --skip-images",
+    "scrape:zh-hant": "node scripts/scrape-herbapedia.js --lang zh-Hant --skip-images",
+    "scrape:zh-hans": "node scripts/scrape-herbapedia.js --lang zh-Hans --skip-images",
     "scrape:all": "node scripts/scrape-herbapedia.js --all-languages"
   },
   "dependencies": {
+    "@herbapedia/data": "workspace:*",
     "@modyfi/vite-plugin-yaml": "^1.1.1",
     "@unhead/vue": "^2.1.4",
     "vite-ssg": "^28.3.0",

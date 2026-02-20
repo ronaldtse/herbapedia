@@ -29,6 +29,11 @@ function createLocalizedRoutes() {
       path: 'about',
       name: 'about',
       component: () => import('@/views/AboutView.vue')
+    },
+    {
+      path: 'basics',
+      name: 'basics',
+      component: () => import('@/views/BasicsView.vue')
     }
   ]
 

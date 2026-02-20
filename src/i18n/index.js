@@ -1,13 +1,13 @@
 import { createI18n } from 'vue-i18n'
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from './locales'
 import en from './messages/en'
-import zhHK from './messages/zh-HK'
-import zhCN from './messages/zh-CN'
+import zhHant from './messages/zh-Hant'
+import zhHans from './messages/zh-Hans'
 
 const messages = {
   'en': en,
-  'zh-HK': zhHK,
-  'zh-CN': zhCN
+  'zh-Hant': zhHant,
+  'zh-Hans': zhHans
 }
 
 const i18n = createI18n({

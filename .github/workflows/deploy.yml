@@ -21,6 +21,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Checkout data-herbapedia
+        uses: actions/checkout@v4
+        with:
+          repository: herbapedia/data-herbapedia
+          path: ../data-herbapedia
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:

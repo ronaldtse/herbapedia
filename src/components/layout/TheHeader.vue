@@ -13,6 +13,7 @@
       <nav class="header__nav" :class="{ 'header__nav--open': mobileMenuOpen }">
         <router-link :to="localePath('/')" class="header__link" @click="closeMobileMenu">{{ t('nav.home') }}</router-link>
         <router-link :to="localePath('/herbs')" class="header__link" @click="closeMobileMenu">{{ t('nav.herbs') }}</router-link>
+        <router-link :to="localePath('/basics')" class="header__link" @click="closeMobileMenu">{{ t('nav.basics') }}</router-link>
         <router-link :to="localePath('/about')" class="header__link" @click="closeMobileMenu">{{ t('nav.about') }}</router-link>
         <a href="https://www.sipm.org/standards/" class="header__link header__link--external" @click="closeMobileMenu">{{ t('nav.standards') }}</a>
         <a href="https://www.sipm.org/" class="header__link header__link--external" @click="closeMobileMenu">{{ t('nav.sipmHome') }}</a>
@@ -102,6 +103,7 @@ const localePath = (path) => {
 .header__nav {
   display: flex;
   gap: var(--spacing-xl);
+  margin-right: var(--spacing-lg);
 }
 
 .header__link {

@@ -2,7 +2,7 @@
  * Main entry point for Herbapedia website
  *
  * Configured for Static Site Generation (SSG) with vite-ssg
- * Supports multilingual content: en, zh-HK, zh-CN
+ * Supports multilingual content: en, zh-Hant, zh-Hans
  */
 
 import { ViteSSG } from 'vite-ssg'
