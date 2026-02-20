@@ -100,6 +100,16 @@ export interface ReferenceItem {
   description?: LanguageMap
 }
 
+export interface ChemicalCompound {
+  '@id': string
+  '@type'?: string[]
+  name?: LanguageMap
+  description?: LanguageMap
+  molecularFormula?: string
+  molecularWeight?: number
+  compoundClass?: string
+}
+
 // ============================================================================
 // Data Loading (Vite import.meta.glob)
 // ============================================================================
@@ -142,6 +152,11 @@ const westernActionModules = import.meta.glob('@herbapedia/data/systems/western/
 const westernOrganModules = import.meta.glob('@herbapedia/data/systems/western/organs.jsonld', {
   eager: true
 }) as Record<string, { default: { '@graph': ReferenceItem[] } }>
+
+// Chemical compounds
+const chemicalModules = import.meta.glob('@herbapedia/data/entities/botanical/chemicals/*/entity.jsonld', {
+  eager: true
+}) as Record<string, { default: ChemicalCompound }>
 
 // ============================================================================
 // Utility Functions
@@ -195,6 +210,7 @@ class HerbapediaDatasetBrowser {
   private categoryMap: Map<string, ReferenceItem>
   private actionMap: Map<string, ReferenceItem>
   private organMap: Map<string, ReferenceItem>
+  private chemicalMap: Map<string, ChemicalCompound>
 
   // Indexes for cross-reference queries
   private tcmByNature: Map<string, string[]> = new Map()
@@ -216,6 +232,9 @@ class HerbapediaDatasetBrowser {
     this.categoryMap = getGraphData(categoryModules)
     this.actionMap = getGraphData(westernActionModules)
     this.organMap = getGraphData(westernOrganModules)
+
+    // Load chemical compounds
+    this.chemicalMap = getModuleData(chemicalModules)
 
     // Build indexes
     this.buildIndexes()
@@ -427,6 +446,11 @@ class HerbapediaDatasetBrowser {
   getOrgan(id: string): ReferenceItem | null {
     const normalizedId = this.normalizeRefId(id, 'western')
     return this.organMap.get(normalizedId) || this.organMap.get(id) || null
+  }
+
+  getChemical(id: string): ChemicalCompound | null {
+    const normalizedId = this.normalizeRefId(id, 'botanical')
+    return this.chemicalMap.get(normalizedId) || this.chemicalMap.get(id) || null
   }
 
   getAllNatures(): ReferenceItem[] {

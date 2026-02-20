@@ -441,47 +441,28 @@ export function useWesternReferences() {
 export function useChemicalReferences() {
   const { locale } = useI18n()
 
-  // Load compound reference data from dataset
-  // The dataset.ts doesn't expose getCompoundLabels, so we need to implement it here
-  // by iterating through plants to find compounds
-
-  function getLocalizedLabel(item) {
-    if (!item || !item.prefLabel) return null
-    return getLocalizedValue(item.prefLabel, locale.value)
-  }
-
   function getCompoundLabels(compoundRefs) {
     if (!compoundRefs || !Array.isArray(compoundRefs)) return []
 
-    // Build a map of compound IDs to their data from plants
-    const compoundMap = new Map()
-    const plants = dataset.getAllPlants()
-
-    for (const plant of plants) {
-      if (plant.containsChemical) {
-        for (const ref of plant.containsChemical) {
-          const id = typeof ref === 'object' ? ref['@id'] : ref
-          if (!compoundMap.has(id)) {
-            compoundMap.set(id, ref)
-          }
-        }
-      }
-    }
-
     return compoundRefs.map(ref => {
       const id = typeof ref === 'object' ? ref['@id'] : ref
-      const originalRef = compoundMap.get(id)
-      // Extract label from the ref object if it has prefLabel
+      const compound = dataset.getChemical(id)
+
       let label = id
       let description = null
 
-      if (originalRef && typeof originalRef === 'object') {
-        if (originalRef.prefLabel) {
-          label = getLocalizedLabel(originalRef)
+      if (compound) {
+        // Chemical entities use 'name' not 'prefLabel'
+        if (compound.name) {
+          label = getLocalizedValue(compound.name, locale.value)
         }
-        if (originalRef.description) {
-          description = getLocalizedValue(originalRef.description, locale.value)
+        if (compound.description) {
+          description = getLocalizedValue(compound.description, locale.value)
         }
+      } else {
+        // Fallback: extract slug from ID for display
+        const parts = id.split('/')
+        label = parts[parts.length - 1] || id
       }
 
       return { id, label, description }
