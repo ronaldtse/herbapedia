@@ -18,14 +18,22 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout site
         uses: actions/checkout@v4
+        with:
+          path: herbapedia
 
-      - name: Checkout data-herbapedia
+      - name: Checkout data
         uses: actions/checkout@v4
         with:
           repository: herbapedia/data-herbapedia
           path: data-herbapedia
+
+      - name: Create workspace config
+        run: |
+          echo 'packages:' > pnpm-workspace.yaml
+          echo '  - "herbapedia"' >> pnpm-workspace.yaml
+          echo '  - "data-herbapedia"' >> pnpm-workspace.yaml
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -41,7 +49,7 @@ jobs:
         run: pnpm install
 
       - name: Build
-        run: pnpm build
+        run: pnpm --filter @herbapedia/site build
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -49,7 +57,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: ./herbapedia/dist
 
   deploy:
     environment:
