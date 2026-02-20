@@ -105,15 +105,16 @@ export interface ReferenceItem {
 // ============================================================================
 
 // Import all JSON-LD files using Vite glob (eagerly loaded)
-const plantModules = import.meta.glob('@herbapedia/data/entities/plants/*/entity.jsonld', {
+// V2 Architecture: Load from new locations
+const plantModules = import.meta.glob('@herbapedia/data/entities/botanical/species/*/entity.jsonld', {
   eager: true
 }) as Record<string, { default: PlantSpecies }>
 
-const tcmModules = import.meta.glob('@herbapedia/data/systems/tcm/herbs/*/profile.jsonld', {
+const tcmModules = import.meta.glob('@herbapedia/data/profiles/tcm/*/profile.jsonld', {
   eager: true
 }) as Record<string, { default: TCMProfile }>
 
-const westernModules = import.meta.glob('@herbapedia/data/systems/western/herbs/*/profile.jsonld', {
+const westernModules = import.meta.glob('@herbapedia/data/profiles/western/*/profile.jsonld', {
   eager: true
 }) as Record<string, { default: WesternHerbalProfile }>
 

@@ -64,7 +64,7 @@ function buildMergedCache() {
   const plants = dataset.getAllPlants()
 
   for (const plant of plants) {
-    const slug = plant['@id'].replace('plant/', '')
+    const slug = plant['@id'].replace('botanical/species/', '')
 
     // Get all profiles for this plant
     const profiles = dataset.getAllProfilesForPlant(slug)
@@ -95,7 +95,7 @@ function buildMergedCache() {
       herbType = 'tcm-herb'
       const categoryRef = tcmProfile.hasCategory
       if (categoryRef && typeof categoryRef === 'object' && categoryRef['@id']) {
-        const categoryId = categoryRef['@id'].replace('category/', '')
+        const categoryId = categoryRef['@id'].replace('tcm/category/', '')
         category = TCM_CATEGORY_MAP[categoryId] || 'chinese-herbs'
       } else {
         category = 'chinese-herbs'
@@ -131,7 +131,7 @@ function buildMergedCache() {
       image: plant.image ? `/@herbapedia/data/${plant.image}` : null,
 
       // TCM profile data
-      tcmSlug: tcmProfile ? (tcmProfile['@id'].replace('tcm/', '')) : null,
+      tcmSlug: tcmProfile ? (tcmProfile['@id'].replace('tcm/profile/', '')) : null,
       pinyin: tcmProfile?.pinyin || null,
       chineseName: tcmProfile?.chineseName || null,
       hasCategory: tcmProfile?.hasCategory || null,
@@ -154,7 +154,7 @@ function buildMergedCache() {
       tcmSafetyConsideration: tcmProfile?.tcmSafetyConsideration || {},
 
       // System-scoped content - Western
-      westernSlug: westernProfile ? (westernProfile['@id'].replace('western/', '')) : null,
+      westernSlug: westernProfile ? (westernProfile['@id'].replace('western/profile/', '')) : null,
       hasAction: westernProfile?.hasAction || [],
       hasOrganAffinity: westernProfile?.hasOrganAffinity || [],
       westernHistory: westernProfile?.westernHistory || {},
