@@ -14,7 +14,6 @@
     "scrape:all": "node scripts/scrape-herbapedia.js --all-languages"
   },
   "dependencies": {
-    "@herbapedia/data": "workspace:*",
     "@modyfi/vite-plugin-yaml": "^1.1.1",
     "@unhead/vue": "^2.1.4",
     "vite-ssg": "^28.3.0",
