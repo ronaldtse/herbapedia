@@ -634,9 +634,6 @@ class HerbapediaDatasetBrowser {
   private dnaBarcodeCache: Map<string, DNABarcode>
   private formulaCache: Map<string, Formula>
 
-  // System metadata
-  private systemMetadataCache: Map<string, MedicalSystem>
-
   // Source materials (non-botanical)
   private zoologicalSourcesCache: Map<string, SourceMaterial>
   private mineralSourcesCache: Map<string, SourceMaterial>
@@ -969,6 +966,27 @@ class HerbapediaDatasetBrowser {
 
   getMongolianProfile(slug: string): MongolianProfile | null {
     return this.mongolianCache.get(slug) || null
+  }
+
+  // Get all profiles for reference data lookups
+  getAllTCMProfiles(): Map<string, TCMProfile> {
+    return this.tcmCache
+  }
+
+  getAllWesternProfiles(): Map<string, WesternHerbalProfile> {
+    return this.westernCache
+  }
+
+  getAllAyurvedaProfiles(): Map<string, AyurvedaProfile> {
+    return this.ayurvedaCache
+  }
+
+  getAllPersianProfiles(): Map<string, PersianProfile> {
+    return this.persianCache
+  }
+
+  getAllMongolianProfiles(): Map<string, MongolianProfile> {
+    return this.mongolianCache
   }
 
   // ===========================================================================

@@ -439,11 +439,11 @@ const referenceItems = computed(() => {
 
     // Get profile cache based on system
     let profileCache
-    if (system.value === 'tcm') profileCache = dataset.tcmCache
-    else if (system.value === 'western') profileCache = dataset.westernCache
-    else if (system.value === 'ayurveda') profileCache = dataset.ayurvedaCache
-    else if (system.value === 'persian') profileCache = dataset.persianCache
-    else if (system.value === 'mongolian') profileCache = dataset.mongolianCache
+    if (system.value === 'tcm') profileCache = dataset.getAllTCMProfiles()
+    else if (system.value === 'western') profileCache = dataset.getAllWesternProfiles()
+    else if (system.value === 'ayurveda') profileCache = dataset.getAllAyurvedaProfiles()
+    else if (system.value === 'persian') profileCache = dataset.getAllPersianProfiles()
+    else if (system.value === 'mongolian') profileCache = dataset.getAllMongolianProfiles()
 
     if (!profileCache) return { id: itemId, slug, label, translations, preparations: [] }
 

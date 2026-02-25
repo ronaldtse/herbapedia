@@ -1752,6 +1752,21 @@ watch(slug, (newSlug) => {
   color: #2563eb;
 }
 
+.prep-methods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+}
+
+.prep-method-tag {
+  font-size: var(--font-size-xs);
+  padding: 2px 8px;
+  background: rgba(249, 115, 22, 0.1);
+  border: 1px solid rgba(249, 115, 22, 0.3);
+  border-radius: var(--radius-sm);
+  color: #c2410c;
+}
+
 /* Sections */
 .preparation-detail__section {
   background: var(--color-surface);
