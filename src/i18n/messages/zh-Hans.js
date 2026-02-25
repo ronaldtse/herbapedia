@@ -29,6 +29,7 @@ export default {
     traditionTCM: '传统中医',
     traditionWestern: '西方草药',
     traditionAyurveda: '阿育吠陀',
+    traditionModern: '现代医学',
     browsePreparations: '浏览制剂'
   },
   // Categories

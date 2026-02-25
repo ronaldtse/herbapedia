@@ -878,17 +878,66 @@ class HerbapediaDatasetBrowser {
   // ===========================================================================
 
   /**
+   * Image result with fallback information.
+   */
+  getImageWithFallback(slug: string): { image: string; isFallback: boolean; fallbackSource?: string } {
+    const prep = this.preparationsCache.get(slug)
+    if (!prep) return { image: '', isFallback: false }
+
+    // If preparation has its own image, use it
+    if (prep.image) {
+      const imagePath = prep.image.startsWith('/@herbapedia') ? prep.image : `/@herbapedia/data/${prep.image}`
+      return { image: imagePath, isFallback: false }
+    }
+
+    // Fall back to source entity's image
+    if (prep.derivedFrom?.[0]) {
+      const sourceSlug = extractSlugFromIRI(prep.derivedFrom[0]['@id'])
+
+      // Try plant source
+      const plant = this.plantsCache.get(sourceSlug)
+      if (plant?.image) {
+        const imagePath = plant.image.startsWith('/@herbapedia') ? plant.image : `/@herbapedia/data/${plant.image}`
+        return { image: imagePath, isFallback: true, fallbackSource: prep.derivedFrom[0]['@id'] }
+      }
+
+      // Try zoological source
+      const zoo = this.zoologicalSourcesCache.get(sourceSlug)
+      if (zoo?.image) {
+        const imagePath = zoo.image.startsWith('/@herbapedia') ? zoo.image : `/@herbapedia/data/${zoo.image}`
+        return { image: imagePath, isFallback: true, fallbackSource: prep.derivedFrom[0]['@id'] }
+      }
+
+      // Try mineral source
+      const mineral = this.mineralSourcesCache.get(sourceSlug)
+      if (mineral?.image) {
+        const imagePath = mineral.image.startsWith('/@herbapedia') ? mineral.image : `/@herbapedia/data/${mineral.image}`
+        return { image: imagePath, isFallback: true, fallbackSource: prep.derivedFrom[0]['@id'] }
+      }
+
+      // Try chemical source
+      const chemical = this.chemicalSourcesCache.get(sourceSlug)
+      if (chemical?.image) {
+        const imagePath = chemical.image.startsWith('/@herbapedia') ? chemical.image : `/@herbapedia/data/${chemical.image}`
+        return { image: imagePath, isFallback: true, fallbackSource: prep.derivedFrom[0]['@id'] }
+      }
+    }
+
+    return { image: '', isFallback: false }
+  }
+
+  /**
    * Get a preparation by slug.
    * Image paths are resolved to /@herbapedia/data/{path}
+   * Falls back to source entity's image if preparation has no image.
    */
   getPreparation(slug: string): HerbalPreparation | null {
     const prep = this.preparationsCache.get(slug)
     if (!prep) return null
 
-    // Resolve image path to served location
-    if (prep.image && !prep.image.startsWith('/@herbapedia')) {
-      prep.image = `/@herbapedia/data/${prep.image}`
-    }
+    // Resolve image path with fallback
+    const imageResult = this.getImageWithFallback(slug)
+    prep.image = imageResult.image
 
     return prep
   }
@@ -1379,6 +1428,18 @@ class HerbapediaDatasetBrowser {
         'en': 'Mongolian Traditional Medicine',
         'zh-Hans': '蒙古传统医学',
         'zh-Hant': '蒙古傳統醫學'
+      }
+    }],
+    ['modern', {
+      '@id': 'https://www.herbapedia.org/system/modern',
+      '@type': ['MedicalSystem'],
+      name: {
+        'en': 'Modern Medicine',
+        'zh-Hans': '现代医学',
+        'zh-Hant': '現代醫學'
+      },
+      alternateName: {
+        'en': 'Evidence-Based Nutrition & Pharmacology'
       }
     }]
   ])

@@ -29,6 +29,7 @@ export default {
     traditionTCM: 'Traditional Chinese Medicine',
     traditionWestern: 'Western Herbalism',
     traditionAyurveda: 'Ayurveda',
+    traditionModern: 'Modern Medicine',
     browsePreparations: 'Browse Preparations'
   },
   // Categories
