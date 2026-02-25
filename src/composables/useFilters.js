@@ -190,7 +190,6 @@ export function useFilters() {
       if (filters.system.tcm && !prep.hasTCMProfile) return false
       if (filters.system.western && !prep.hasWesternProfile) return false
       if (filters.system.ayurveda && !prep.hasAyurvedaProfile) return false
-
       // TCM property filters
       if (filters.tcm.nature || filters.tcm.flavor || filters.tcm.meridian || filters.tcm.category) {
         const tcmProfile = resolveTCMProfile(prep)
@@ -204,7 +203,6 @@ export function useFilters() {
             return false
           }
         }
-
         if (filters.tcm.flavor) {
           const flavors = tcmProfile.hasFlavor || []
           const hasFlavor = flavors.some(f => {
@@ -215,7 +213,6 @@ export function useFilters() {
           })
           if (!hasFlavor) return false
         }
-
         if (filters.tcm.meridian) {
           const meridians = tcmProfile.entersMeridian || []
           const hasMeridian = meridians.some(m => {
@@ -226,7 +223,6 @@ export function useFilters() {
           })
           if (!hasMeridian) return false
         }
-
         if (filters.tcm.category) {
           const catId = tcmProfile.hasCategory?.['@id'] || tcmProfile.hasCategory
           if (catId !== `tcm/category/${filters.tcm.category}` &&
@@ -236,7 +232,6 @@ export function useFilters() {
           }
         }
       }
-
       // Western property filters
       if (filters.western.action || filters.western.organ) {
         const westernProfile = resolveWesternProfile(prep)
@@ -252,7 +247,6 @@ export function useFilters() {
           })
           if (!hasAction) return false
         }
-
         if (filters.western.organ) {
           const organs = westernProfile.hasOrganAffinity || []
           const hasOrgan = organs.some(o => {
@@ -264,7 +258,6 @@ export function useFilters() {
           if (!hasOrgan) return false
         }
       }
-
       return true
     })
   }
@@ -341,57 +334,88 @@ function resolveWesternProfile(prep) {
 export function useFilterOptions() {
   const { locale } = useI18n()
 
-  // TCM options
-  const tcmNatures = [
-    { value: 'hot', label: 'Hot' },
-    { value: 'warm', label: 'Warm' },
-    { value: 'neutral', label: 'Neutral' },
-    { value: 'cool', label: 'Cool' },
-    { value: 'cold', label: 'Cold' }
-  ]
+  // Get TCM Thermal Natures from dataset
+  const tcmNatures = computed(() => {
+    const natures = dataset.getAllNatures()
+    if (!natures || natures.length === 0) return []
+    return natures.map(n => {
+      const id = n['@id']
+      const slug = extractSlugFromId(id)
+      return {
+        value: slug,
+        label: getLocalizedLabel(n, locale.value)
+      }
+    })
+  })
 
-  const tcmFlavors = [
-    { value: 'pungent', label: 'Pungent' },
-    { value: 'sweet', label: 'Sweet' },
-    { value: 'sour', label: 'Sour' },
-    { value: 'bitter', label: 'Bitter' },
-    { value: 'salty', label: 'Salty' }
-  ]
+  // Get TCM Flavors from dataset
+  const tcmFlavors = computed(() => {
+    const flavors = dataset.getAllFlavors()
+    if (!flavors || flavors.length === 0) return []
+    return flavors.map(f => {
+      const id = f['@id']
+      const slug = extractSlugFromId(id)
+      return {
+        value: slug,
+        label: getLocalizedLabel(f, locale.value)
+      }
+    })
+  })
 
   // Get TCM categories from dataset
   const tcmCategories = computed(() => {
     const categories = dataset.getAllCategories()
-    return categories.map(cat => ({
-      value: extractSlugFromId(cat['@id']),
-      label: getLocalizedLabel(cat, locale.value)
-    }))
+    if (!categories || categories.length === 0) return []
+    return categories.map(cat => {
+      const id = cat['@id']
+      const slug = extractSlugFromId(id)
+      return {
+        value: slug,
+        label: getLocalizedLabel(cat, locale.value)
+      }
+    })
   })
 
   // Get TCM meridians from dataset
   const tcmMeridians = computed(() => {
     const meridians = dataset.getAllMeridians()
-    return meridians.map(m => ({
-      value: extractSlugFromId(m['@id']),
-      label: getLocalizedLabel(m, locale.value)
-    }))
+    if (!meridians || meridians.length === 0) return []
+    return meridians.map(m => {
+      const id = m['@id']
+      const slug = extractSlugFromId(id)
+      return {
+        value: slug,
+        label: getLocalizedLabel(m, locale.value)
+      }
+    })
   })
 
   // Get Western actions from dataset
   const westernActions = computed(() => {
     const actions = dataset.getAllActions()
-    return actions.map(a => ({
-      value: extractSlugFromId(a['@id']),
-      label: getLocalizedLabel(a, locale.value)
-    }))
+    if (!actions || actions.length === 0) return []
+    return actions.map(a => {
+      const id = a['@id']
+      const slug = extractSlugFromId(id)
+      return {
+        value: slug,
+        label: getLocalizedLabel(a, locale.value)
+      }
+    })
   })
 
   // Get Western organs from dataset
   const westernOrgans = computed(() => {
     const organs = dataset.getAllOrgans()
-    return organs.map(o => ({
-      value: extractSlugFromId(o['@id']),
-      label: getLocalizedLabel(o, locale.value)
-    }))
+    if (!organs || organs.length === 0) return []
+    return organs.map(o => {
+      const id = o['@id']
+      const slug = extractSlugFromId(id)
+      return {
+        value: slug,
+        label: getLocalizedLabel(o, locale.value)
+      }
+    })
   })
 
   return {
