@@ -329,6 +329,10 @@ export default {
     mongolian: {
       name: 'Mongolian Traditional Medicine',
       description: 'Traditional healing system influenced by Tibetan medicine, focusing on the three root energies (heyi, xila, badagan) and the balance of elements.'
+    },
+    modern: {
+      name: 'Modern Medicine',
+      description: 'Contemporary nutritional and pharmaceutical substances including vitamins, minerals, amino acids, and other bioactive compounds supported by modern scientific research.'
     }
   },
   // Sources

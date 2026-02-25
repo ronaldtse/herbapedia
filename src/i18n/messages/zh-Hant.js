@@ -72,6 +72,7 @@ export default {
     ayurveda: '阿育吠陀',
     persian: '波斯',
     mongolian: '蒙古',
+    modern: '現代',
     ayurvedaComingSoon: '阿育吠陀資料即將推出。',
     natureHot: '熱',
     natureWarm: '溫',
@@ -322,6 +323,10 @@ export default {
     mongolian: {
       name: '蒙古傳統醫學',
       description: '受藏醫影響的傳統治療體系，關注三根能量和元素平衡。'
+    },
+    modern: {
+      name: '現代醫學',
+      description: '當代營養和藥物物質，包括維生素、礦物質、氨基酸及其他經現代科學研究支持的生物活性化合物。'
     },
     // New keys
     preparationsWithProfile: '使用此檔案的製劑',

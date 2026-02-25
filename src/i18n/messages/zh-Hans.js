@@ -72,6 +72,7 @@ export default {
     ayurveda: '阿育吠陀',
     persian: '波斯',
     mongolian: '蒙古',
+    modern: '现代',
     ayurvedaComingSoon: '阿育吠陀资料即将推出。',
     natureHot: '热',
     natureWarm: '温',
